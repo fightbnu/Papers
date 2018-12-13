@@ -1,0 +1,106 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+        .textarea-inherit {
+        width: 100%;
+        overflow: auto;
+        word-break: break-all; //解决兼容问题
+    }
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <!--Set the introduction -->
+    <div class="container-fluid">
+        <div class="card bg-light mb-3">
+            <h5 class="card-header bg-dark text-white">
+                第二部分：请根据指导语回忆相应内容
+            </h5>
+            <div class="card-body">
+                <p class="card-text">
+                    <b>
+                        怀旧是指人们对过去的怀念和渴望，或者是对美好而重要往事的念念不忘。
+                    </b>
+                </p>
+                <p class="card-text">
+                    现在，请回想对您个人生活中最有意义、最让您感到最怀旧的一件事或者一段经历。请仔细回忆那件事情的经过，并将自己沉浸到怀旧体验当中。 同时，想想这件事给你带来的感受。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+            <div class="card bg-light mb-3">
+                <h6 class="card-header ">请写出4个关于这个事件的关键词。</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            {% formfield player.recall_keyword_1 label="" %}
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            {% formfield player.recall_keyword_2 label="" %}
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            {% formfield player.recall_keyword_3 label="" %}
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            {% formfield player.recall_keyword_4 label="" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-light mb-3">
+                <h6 class="card-header">请您用<b>6分钟</b>时间写下您刚才怀旧的内容，并说明这这件事让您感到怀旧的理由。【6分钟过后，方可进入下一页面】</h6>
+                <div class="card-body">
+                    <p>文字描述尽可能详细、具体，写下所有与这件怀旧事件相关的生动细节（书写内容不少于150字）。</p>
+                    <!--{% formfield player.recall_statement label="" %}-->
+                    <div class="form-group required">
+                        <div class="controls  field-recall_statement">
+                            <textarea class="textarea-inherit" name="recall_statement" rows="10" required="" id="id_recall_statement"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="container-fluid">
+        <button id="submitButton" type="button" class="otree-btn-next btn btn-secondary btn-lg btn-block"">下一页</button>
+    </div>
+
+    <script language="javascript">
+            document.getElementById("submitButton").onclick = function(){
+                if(document.getElementById("id_recall_statement").value.length < 150)
+                {
+                    alert("输入文本长度不能小于150个字符!");
+                    return false;
+                }
+                return true;
+            }
+    </script>
+
+    <script>
+        function changeButton(){
+            document.getElementById("submitButton").className = "otree-btn-next btn btn-primary btn-lg btn-block";
+            document.getElementById("submitButton").type = "";
+        };
+        var changeTime = setTimeout(function(){changeButton();},1000);
+        window.onload = function(){
+            changeTime;
+        };
+    </script>
+
+{% endblock %}

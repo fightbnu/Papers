@@ -1,0 +1,45 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <div class="container-fluid mb-3">
+        <div class="card border-success">
+            <h5 class="card-header bg-success text-white">为保证您已经了解游戏程序，请您回答以下问题：</h5>
+            <div class="card-body">
+                <div class="card">
+                    <h5 class="card-header text-dark">4.在本轮游戏结束后，如果系统检测到 <span class="badge badge-danger">裁判C</span> 使用了机关。</h5>
+                    <img class="card-img-top mb-3" src="{% static "a/Check_4.png" %}" alt="check_4">
+                    <div class="container-fluid mb-3">
+                    <div class="card">
+                        <div class="card-body card-text">针对 <span class="badge badge-danger">裁判C</span>，以下表述正确的是: <hr/> {% formfield player.check_13 label="" %}</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body card-text">针对 <span class="badge badge-success">玩家A</span>，以下表述正确的是: <hr/> {% formfield player.check_14 label="" %}</div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <button class="otree-btn-next btn btn-success btn-lg btn-block mb-3">下一页</button>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

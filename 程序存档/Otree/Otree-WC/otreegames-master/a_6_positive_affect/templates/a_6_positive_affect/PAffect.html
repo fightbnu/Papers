@@ -1,0 +1,94 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1000px
+        }
+        .page-header {
+            padding-top: 2px
+        }
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <script>
+        var emotion_lists = ["快乐","心情好","不开心","悲伤"];
+        var len = emotion_lists.length;
+        for (var i = 0; i < len - 1; i++) {
+            var index = parseInt(Math.random() * (len - i));
+            var temp = emotion_lists[index];
+            emotion_lists[index] = emotion_lists[len - i - 1];
+            emotion_lists[len - i - 1] = temp;
+        }
+        for (var i=0; i< len; i++){
+            document.write(emotion_lists[i]+"\r\n")
+        }
+        var TestA = 2;
+    </script>
+
+    <div class="container-fluid">
+        <div class="card bg-light mb-3">
+            <h5 class="card-header bg-dark text-white">
+                第三部分：请根据你现在的真实感受，对下列表述进行1-7点评分。
+            </h5>
+            <div class="card-body">
+                <h6 class="card-title text-danger mb-4">
+                    分值越高，越符合你现在的情况。
+                </h6>
+
+                <table class="table">
+                    <script>var i=0;</script>
+                    {% for field in form %}
+                        <tr>
+                            <script> {{field.label|json}} = emotion_lists[i];</script>
+                            <th>{{ field.label }}</th>
+                            {% for choice in field %}
+                                <td>{{ choice }}</td>
+                            {% endfor %}
+                        </tr>
+                        <script>i=i+1;</script>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <button class="otree-btn-next btn btn-primary btn-lg btn-block" id ="test1">下一页</button>
+    </div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

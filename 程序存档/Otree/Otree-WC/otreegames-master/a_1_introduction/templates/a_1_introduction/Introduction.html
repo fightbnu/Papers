@@ -1,0 +1,59 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="card bg-light">
+        <h5 class="card-header bg-dark text-white text-center">指导语</h5>
+        <div class="card-body">
+            <p style="line-height:2">
+                <b>
+                    欢迎您来参加我们的调查。本调查旨在考察人们的社会态度和决策方式。
+                    本调查为匿名调查，在整个调查过程中不会记录可以识别您身份的信息，请您按照您的真实想法如实作答。
+                    再次感谢您的参与。
+                </b>
+            </p>
+            <p style="line-height:2">
+                本调查包含以下几个部分，每个部分之间相互独立：
+            </p>
+            <ul class="list-group">
+                <b>
+                    <li class="list-group-item">1. 游戏规则学习</li>
+                    <li class="list-group-item">2. 生活事件回忆</li>
+                    <li class="list-group-item">3. 情绪状态测量</li>
+                    <li class="list-group-item">4. 生活态度测量</li>
+                    <li class="list-group-item">5. 正式角色游戏</li>
+                    <li class="list-group-item">6. 个人信息调查</li>
+                </b>
+            </ul>
+            <br/>
+            <p style="line-height:2">
+                每部分调查开始前，都会有详细的指导语告知您如何作答，请您务必认真阅读指导语。
+            </p>
+        </div>
+    </div>
+    </div>
+
+    <br/>
+
+    <div class="container-fluid">
+        <button class="otree-btn-next btn btn-primary btn-lg btn-block">进入调查</button>
+    </div>
+
+{% endblock %}
+

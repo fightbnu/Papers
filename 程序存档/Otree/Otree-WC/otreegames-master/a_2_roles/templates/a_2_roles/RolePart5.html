@@ -1,0 +1,76 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block content %}
+    <div class="container-fluid mb-3">
+        <div class="card border-success">
+            <h5 class="card-header bg-success text-white">第一部分：决策游戏规则学习</h5>
+            <!--<img class="card-img-top" src="{% static "a/Banner_2.png" %}" alt="Card image cap">-->
+            <div class="card-body">
+                <h6 class="card-title" style="line-height:2">为了加深您对游戏规则的理解，接下来请完成四轮决策游戏练习。（注意：练习结果将不会影响您的最终收益）</h6>
+                <hr/>
+                <div class="alert alert-success mb-1" role="alert">
+                    <h6 class="alert-heading" style="line-height:2">在游戏练习开始之前，请您熟悉决策游戏互动界面 (以裁判界面为例)，如下图所示：</h6>
+                    <img class="card-img-top" src="{% static "a/Intro_5.png" %}" alt="Intro_5">
+                    <br /><br />
+                    <ul class="list-group list-group-flush text-justify">
+                        <li class="list-group-item list-group-item-action">
+                            <h6>界面说明:</h6>
+                        </li>
+                        <li class="list-group-item list-group-item-action">
+                            ① 状态栏：显示游戏总轮次和当前所在轮次
+                        </li>
+                        <li class="list-group-item list-group-item-action">
+                            ② 对话栏：显示玩家A和玩家B私下赠送给裁判的代币数量，玩家A和玩家B之间相互保密，仅裁判能够看到两者赠送的金额
+                        </li>
+                        <li class="list-group-item list-group-item-action">
+                            ③ 决策栏：裁判需要通过点击按钮决定接受或拒绝玩家赠送的代币
+                        </li>
+                        <li class="list-group-item list-group-item-action">
+                            ④ 余额栏：显示裁判当前的账户金额
+                        </li>
+                        <li class="list-group-item list-group-item-action">
+                            ⑤ 概率栏：显示玩家A和玩家B的获胜概率，如果裁判接受了某方赠送的代币，获胜概率将发生相应变化
+                        </li>
+                        <li class="list-group-item list-group-item-action">
+                            ⑥ 结果栏：显示系统随机运行后产生的获胜结果。
+                        </li>
+                        <li class="list-group-item list-group-item-action">
+                            ⑦ 提示栏：系统将自动计算裁判各种行为所对应的收益或损失结果，供裁判参考。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container-fluid mb-3">
+                <button id="submitButton" type="button" class="otree-btn-next btn btn-secondary btn-lg btn-block mb-2">我已充分理解游戏规则和游戏界面，进入游戏练习</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeButton(){
+            document.getElementById("submitButton").className = "otree-btn-next btn btn-primary btn-lg btn-block mb-2";
+            document.getElementById("submitButton").type = "";
+        };
+        var changeTime = setTimeout(function(){changeButton();},10000);
+        window.onload = function(){
+            changeTime;
+        };
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+    <script>
+        var a = new Array();
+        a[0]="难过";
+        a[1]="开心";
+        a[2]="大笑";
+        var len = a.length;
+        for (var i = 0; i < len - 1; i++) {
+            var index = parseInt(Math.random() * (len - i));
+            var temp = a[index];
+            a[index] = a[len - i - 1];
+            a[len - i - 1] = temp;
+        }
+
+        for (var i=0; i< len; i++){
+            document.write(a[i])
+        }
+    </script>

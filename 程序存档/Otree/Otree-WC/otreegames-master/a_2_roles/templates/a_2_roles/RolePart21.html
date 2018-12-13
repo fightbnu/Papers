@@ -1,0 +1,56 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <div class="container-fluid mb-3">
+        <div class="card border-success">
+            <h5 class="card-header bg-success text-white">第一部分：决策游戏规则学习</h5>
+            <!--<img class="card-img-top" src="{% static "a/Banner_2.png" %}" alt="Card image cap">-->
+            <div class="card-body">
+                <h6 class="card-title">欢迎前来参加我们的游戏。游戏规则对于完成游戏至关重要，请您务必结合图片仔细阅读！</h6>
+                <div class="alert alert-success mb-1" role="alert">
+                    <h6 class="alert-heading">第二部分(1)：</h6>
+                    <img class="card-img-top" src="{% static "a/Intro_2_1.png" %}" alt="intro_2">
+                    <ul class="list-group list-group-flush text-justify">
+                        <li class="list-group-item list-group-item-action">(1) 但在实际操作中，裁判C可以通过机关干预游戏过程，使某方获胜的概率由50%提升到90%</li>
+                    </ul>
+                    <br/>
+                    <img class="card-img-top" src="{% static "a/Intro_2_2.png" %}" alt="intro_2">
+                    <ul class="list-group list-group-flush text-justify">
+                        <li class="list-group-item list-group-item-action">(2) 玩家A和B可在对方不知情的情况下，送一定数额的代币给裁判C，请求裁判使用机关，提升自己的获胜概率</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container-fluid mb-3">
+                <button id="submitButton" type="button" class="otree-btn-next btn btn-secondary btn-lg btn-block mb-2">我已充分理解本页游戏规则</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeButton(){
+            document.getElementById("submitButton").className = "otree-btn-next btn btn-primary btn-lg btn-block mb-2";
+            document.getElementById("submitButton").type = "";
+        };
+        var changeTime = setTimeout(function(){changeButton();},10000);
+        window.onload = function(){
+            changeTime;
+        };
+    </script>
+
+{% endblock %}

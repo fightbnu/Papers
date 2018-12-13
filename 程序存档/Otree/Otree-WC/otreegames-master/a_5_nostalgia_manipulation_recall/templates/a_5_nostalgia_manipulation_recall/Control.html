@@ -1,0 +1,97 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+        .textarea-inherit {
+        width: 100%;
+        overflow: auto;
+        word-break: break-all; //解决兼容问题
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <!--Set the introduction -->
+    <div class="container-fluid">
+        <div class="card bg-light mb-3">
+            <h5 class="card-header bg-dark text-white">
+                第二部分：请根据指导语回忆相应内容
+            </h5>
+            <div class="card-body">
+                <p class="card-text">
+                    请您回忆上周发生在您生活中的一件非常普通事件,这个事件可能在你的生活中每天都会发生。请仔细回想那件事的经过，客观地描述这件事件的事实性细节，避免个人情感的卷入。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+            <div class="card bg-light mb-3">
+                <h6 class="card-header ">请写出4个关于这个事件的关键词。</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            {% formfield player.recall_keyword_1 label="" %}
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            {% formfield player.recall_keyword_2 label="" %}
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            {% formfield player.recall_keyword_3 label="" %}
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            {% formfield player.recall_keyword_4 label="" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-light mb-3">
+                <h6 class="card-header" id="test1">请您用6分钟时间写下您刚才想起的内容。【6分钟过后，方可进入下一页面】</h6>
+                <div class="card-body">
+                <p>文字描述尽可能详细、具体，写下所有与这个事件相关的生动细节（书写内容不少于150字）。</p>
+                    <!--{% formfield player.recall_statement label="" %}-->
+                    <div class="form-group required">
+                        <div class="controls  field-recall_statement">
+                            <textarea class="textarea-inherit" name="recall_statement" rows="10" required="" id="id_recall_statement"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="container-fluid">
+        <button id="submitButton" class="otree-btn-next btn btn-secondary btn-lg btn-block">下一页</button>
+    </div>
+
+    <script>
+        function changeButton(){
+            document.getElementById("submitButton").className = "otree-btn-next btn btn-primary btn-lg btn-block";
+            document.getElementById("submitButton").type = "";
+        };
+        var changeTime = setTimeout(function(){changeButton();},1000);
+
+
+        function shuField(){
+            lists = [ 'Affect_1', 'Affect_2', 'Affect_3R', 'Affect_4R' ];
+            random.shuffle(lists);
+            document.getElementById("test1").innerHTML=lists[0];
+        };
+
+        window.onload = function(){
+            changeTime;
+            shuField;
+        };
+    </script>
+
+{% endblock %}

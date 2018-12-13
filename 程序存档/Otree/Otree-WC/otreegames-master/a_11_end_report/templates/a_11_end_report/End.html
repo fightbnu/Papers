@@ -1,0 +1,38 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="card bg-light mb-3">
+            <h5 class="card-header text-center text-white bg-info">指导语</h5>
+            <div class="card-body text-center">
+                <p>
+                  您已完成所有调查，感谢您对我们研究的大力支持!
+                </p>
+                <p>
+                  您在游戏中共赢得 {{ totleGain }}，加上您的基础资本 250 代币，您共获得 {{ totleMoney }} 被试费，
+                </p>
+                <p>
+                  再次感谢您的参与！
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

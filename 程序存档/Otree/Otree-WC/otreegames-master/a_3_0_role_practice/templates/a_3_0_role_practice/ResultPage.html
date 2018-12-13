@@ -1,0 +1,84 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid mb-3">
+        <div class="card card-light mb-3">
+            <h5 class="card-header text-center bg-success text-white">
+                第   {{ current_round }}   轮 / 共 4 轮
+            </h5>
+            <br/>
+            <div class="card-body">
+                <h4 class="card-title text-center text-success">系统检查通过</h4>
+                <br/>
+            </div>
+            <div class="container-fluid">
+                <div class="row mb-3">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="card border-success">
+                            <h5 class="card-header text-center text-success">玩家A</h5>
+                            <img class="card-img-top" src="{% static "a/Role_2.png" %}" alt="Role_2" />
+                            <br/>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-center">本轮支出：{{ player.playerAGive }} 代币</li>
+                                <li class="list-group-item text-center">本轮收入：{{ player.playerAGain }} 代币</li>
+                                <li class="list-group-item text-center">本轮获利：{{ player.All_A }} 代币</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="card border-danger">
+                            <h5 class="card-header text-center text-danger">裁判（您）</h5>
+                            <img class="card-img-top" src="{% static "a/Role_1.png" %}" alt="Role_1" />
+                            <br/>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-center"><b>本轮收益：{{ player.selfGain }} 代币</b></li>
+                                <li class="list-group-item text-center"><b>本轮惩罚: 0 代币</b></li>
+                                <li class="list-group-item text-center"><b>资产总额： {{ totoleMoney }} </b></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="card border-success">
+                            <h5 class="card-header text-center text-success">玩家B</h5>
+                            <img class="card-img-top" src="{% static "a/Role_2.png" %}" alt="Role_2" />
+                            <br/>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-center">本轮支出：{{ player.playerBGive }} 代币 </li>
+                                <li class="list-group-item text-center">本轮收益：{{ player.playerBGain }} 代币 </li>
+                                <li class="list-group-item text-center">本轮获利：{{ player.All_B }}  代币</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container-fluid">
+            <button id = "submitButton" class="otree-btn-next btn btn-success btn-lg btn-block">
+                游戏继续
+            </button>
+        </div>
+
+    </div>
+
+{% endblock%}

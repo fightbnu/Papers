@@ -1,0 +1,379 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid mb-3">
+        <div class="card card-light mb-3">
+            <h5 class="card-header text-center bg-success text-white">
+                第   {{ current_round }}   轮 / 共 10 轮
+            </h5>
+            <br/>
+            <div class="container-fluid">
+            <div class="row md-2">
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <br/>
+                    <div class="card border-success">
+                        <h6 class="card-header text-center"><span class="badge badge-success"> 玩家A{{ current_round }}与您的私密消息 </span> </h6>
+                        <div class="card-body text-center">
+                            <span id="aMessage" class="card-text text-center"><br/></span>
+                            <hr/>
+                            <div>
+                                <button id = "aAccept" value="True" onclick="shiftAProp(); TurnDown(); getWinner(); getAcceptA();" class="btn btn-secondary" disabled="true">接受</button>
+                                <button id = "aReject" value="False" onclick="keepProp(); TurnDown(); getWinner(); getRejectA();" class="btn btn-secondary" disabled="true">拒绝</button>
+                            </div>
+                        </div>
+                    </div>
+                    <img class="card-img-top" src="{% static "a/Line.png" %}" alt="line" />
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="card border-danger">
+                            <h5 class="card-header text-center text-danger">裁判（您）</h5>
+                            <img class="card-img-top" src="{% static "a/Role_1.png" %}" alt="Role_1" />
+                            <div class="car-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-center">
+                                  <b>当前账户余额：<span class="badge badge-danger">{{ totoleMoney }}</span></b>
+                                </li>
+                            </ul>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <br/>
+                    <div class="card border-success">
+                        <h6 class="card-header text-center"> <span class="badge badge-success">玩家B{{ current_round }}与您的私密消息</span> </h6>
+                        <div class="card-body text-center">
+                            <span id="bMessage" class="card-text text-center"><br/></span>
+                            <hr/>
+                            <div>
+                                <button value="True" id = "bAccept" onclick="shiftBProp(); TurnDown(); getWinner(); getAcceptB();" class="btn btn-secondary choice" disabled="true">接受</button>
+                                <button value="False" id = "bReject" onclick="keepProp(); TurnDown(); getWinner(); getRejectB()" class="btn btn-secondary choice" disabled="true">拒绝</button>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <img class="card-img-top" src="{% static "a/Line.png" %}" alt="line" />
+                </div>
+            </div>
+            </div>
+
+            <div class="container-fluid">
+
+            <div class="row md-2">
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="card border-success">
+                            <h5 class="card-header text-center text-success">玩家A{{ current_round }}</h5>
+                            <img class="card-img-top" src="{% static "a/Role_2.png" %}" alt="Role_1" />
+                            <div class="car-body">
+                                <br/>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-center">
+                                    <b>本轮获胜概率</b>
+                                </li>
+                                <li class="list-group-item text-center"><b>
+                                    <span id="aWinProp" class="badge badge-danger">50%</span></b>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="card bg-light">
+                        <h5 id="stageStatement" class="card-header text-center">游戏桌面</h5>
+                        <img id="changeImg" class="card-img-top" src="{% static "a/select-0.png" %}" alt="select" />
+                        <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-center">
+                                    <b>本轮获胜方:</b>
+                                </li>
+                                <li class="list-group-item text-center">
+                                    <span id="winSide" class="badge badge-secondary">***</span>
+                                </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="card border-success">
+                            <h5 class="card-header text-center text-success">玩家B{{ current_round }}</h5>
+                            <img class="card-img-top" src="{% static "a/Role_2.png" %}" alt="Role_1" />
+
+                            <div class="car-body">
+                                <br/>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-center"><b>
+                                    本轮获胜概率</b>
+                                </li>
+                                <li class="list-group-item text-center">
+                                    <span id="bWinProp" class="badge badge-danger">50%</span>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+                <hr/>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>收益计算提醒!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <hr/>
+                <p><strong>如果您拒绝：</strong>那么您本轮收益为 <span id="rejectGain">*</span> 代币，您的账户余额将为 <span id="rejectAll">***</span>代币； </p>
+                <p><strong>如果您接受，有95%的可能不被发现：</strong>那么您本轮收益为<span id="sentAll">**</span>代币，您的账户余额将为<span id="AfterReceive">***</span>代币；</p>
+                <p><strong>如果您接受，有5%的可能被发现：</strong>那么您前轮收益全部归零，且要被罚<span id="punish">**</span>代币，您的账户余额将为<span id="AfterPunish">***</span>代币；</p>
+            </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <button id = "submitButton" type = "button" class="otree-btn-next btn btn-secondary btn-lg btn-block">
+                请您等待游戏结果
+            </button>
+        </div>
+    </div>
+
+    <input type="hidden" name='offerAcceptedA' value="" id="id_try_offerAcceptedA" />
+    <input type="hidden" name='offerAcceptedB' value="" id="id_try_offerAcceptedB" />
+    <input type="hidden" name="roundWinner" value="" id="id_try_roundWinder"/>
+    <input type="hidden" name="playerAGive" value="" id="id_try_playerAGive"/>
+    <input type="hidden" name="playerBGive" value="" id="id_try_playerBGive"/>
+    <input type="hidden" name="playerAGain" value="" id="id_try_playerAGain"/>
+    <input type="hidden" name="playerBGain" value="" id="id_try_playerBGain"/>
+    <input type="hidden" name="selfGain" value="" id="id_try_selfGain"/>
+    <input type="hidden" name="All_A" value="" id="id_try_All_A"/>
+    <input type="hidden" name="All_B" value="" id="id_try_All_B"/>
+
+<script>
+    var a = 0;
+    var b = 0;
+    var Winner = "";
+    var prop_num = Math.random();
+
+    if (prop_num > 0.1 ){
+        a = 1
+    } else { a = 0 };
+
+    if (prop_num >= 0.5 ){
+        b = 1
+    } else { b = 0 };
+</script>
+
+<script>
+        function aActive(){
+            if ({{ player.sentAccountA|json }} > 0){
+                document.getElementById("aAccept").className = "btn btn-primary";
+                document.getElementById("aReject").className = "btn btn-danger";
+                document.getElementById("aAccept").disabled = false;
+                document.getElementById("aReject").disabled = false;}
+        };
+
+        function bActive(){
+            if ({{ player.sentAccountB|json }} > 0){
+                document.getElementById("bAccept").className = "btn btn-primary";
+                document.getElementById("bReject").className = "btn btn-danger";
+                document.getElementById("bAccept").disabled = false;
+                document.getElementById("bReject").disabled = false;}
+        };
+
+         function TurnDown(){
+            document.getElementById("aAccept").className = "btn btn-secondary";
+            document.getElementById("aReject").className = "btn btn-secondary";
+            document.getElementById("bAccept").className = "btn btn-secondary";
+            document.getElementById("bReject").className = "btn btn-secondary";
+            document.getElementById("aAccept").disabled = true;
+            document.getElementById("aReject").disabled = true;
+            document.getElementById("bAccept").disabled = true;
+            document.getElementById("bReject").disabled = true;
+            document.getElementById("changeImg").src = "{% static "a/select.gif" %}";
+            document.getElementById("stageStatement").innerHTML = "游戏开始";
+            document.getElementById("stageStatement").className = "card-header text-center text-white bg-danger";
+        };
+
+        function aMessage(){
+            document.getElementById("aMessage").innerHTML = "送您 {{ player.sentAccountA|json }} 代币";
+        };
+
+        function bMessage(){
+            document.getElementById("bMessage").innerHTML = "送您 {{ player.sentAccountB|json }} 代币";
+        };
+
+        function alertMessage(){
+            document.getElementById("rejectGain").innerHTML = "0";
+            document.getElementById("rejectAll").innerHTML = {{ totoleMoney|json }}
+            document.getElementById("sentAll").innerHTML = {{ sentAll|json }}
+            document.getElementById("AfterReceive").innerHTML = {{ AfterReceive|json }}
+            document.getElementById("punish").innerHTML = {{ punish|json }}
+            document.getElementById("AfterPunish").innerHTML = {{ AfterPunish|json }}
+        };
+
+        function shiftAProp(){
+            document.getElementById("aWinProp").innerHTML = "90%";
+            document.getElementById("bWinProp").innerHTML = "10%";
+        };
+
+        function keepProp(){
+            document.getElementById("aWinProp").innerHTML = "50%";
+            document.getElementById("bWinProp").innerHTML = "50%";
+        };
+
+        function shiftBProp(){
+            document.getElementById("aWinProp").innerHTML = "10%";
+            document.getElementById("bWinProp").innerHTML = "90%";
+        };
+
+
+        function getAcceptA(){
+            document.getElementById("id_try_offerAcceptedA").value = "True";
+            document.getElementById("id_try_playerAGive").value = {{ player.sentAccountA|json }};
+            document.getElementById("id_try_playerBGive").value = "0";
+            document.getElementById("id_try_selfGain").value = {{ player.sentAccountA|json }};
+            if (a == 1){
+                Winner = "玩家A{{ current_round|json }}";
+                document.getElementById("id_try_roundWinder").value = "A";
+                document.getElementById("id_try_playerAGain").value = "50";
+                document.getElementById("id_try_playerBGain").value = "0";
+                document.getElementById("id_try_All_A").value = 50 - {{ player.sentAccountA|json }};
+                document.getElementById("id_try_All_B").value = "0";
+            } else {
+                Winner = "玩家B{{ current_round|json }}";
+                document.getElementById("id_try_roundWinder").value = "B";
+                document.getElementById("id_try_playerAGain").value = "0";
+                document.getElementById("id_try_playerBGain").value = "50";
+                document.getElementById("id_try_All_A").value = 0 - {{ player.sentAccountA|json }};
+                document.getElementById("id_try_All_B").value = "50";
+            };
+        };
+        function getRejectA(){
+            document.getElementById("id_try_offerAcceptedA").value = "False";
+            document.getElementById("id_try_playerAGive").value = "0";
+            document.getElementById("id_try_playerBGive").value = "0";
+            document.getElementById("id_try_selfGain").value = "0";
+            if (b == 1){
+                Winner = "玩家A{{ current_round|json }}";
+                document.getElementById("id_try_roundWinder").value = "A";
+                document.getElementById("id_try_playerAGain").value = "50";
+                document.getElementById("id_try_playerBGain").value = "0";
+                document.getElementById("id_try_All_A").value = "50";
+                document.getElementById("id_try_All_B").value = "0";
+            } else {
+                Winner = "玩家B{{ current_round|json }}";
+                document.getElementById("id_try_roundWinder").value = "B";
+                document.getElementById("id_try_playerAGain").value = "0";
+                document.getElementById("id_try_playerBGain").value = "50";
+                document.getElementById("id_try_All_A").value = "0";
+                document.getElementById("id_try_All_B").value = "50";
+            };
+        };
+
+        function getAcceptB(){
+            document.getElementById("id_try_offerAcceptedB").value = "True";
+            document.getElementById("id_try_playerBGive").value = {{ player.sentAccountB|json }};
+            document.getElementById("id_try_playerAGive").value = "0";
+            document.getElementById("id_try_selfGain").value = {{ player.sentAccountB|json }};
+            if (a == 1){
+                Winner = "玩家B{{ current_round|json }}";
+                document.getElementById("id_try_roundWinder").value = "B";
+                document.getElementById("id_try_playerAGain").value = "0";
+                document.getElementById("id_try_playerBGain").value = "50";
+                document.getElementById("id_try_All_A").value = "0";
+                document.getElementById("id_try_All_B").value = 50 - {{ player.sentAccountB|json }};
+            } else {
+                Winner = "玩家A{{ current_round|json }}";
+                document.getElementById("id_try_roundWinder").value = "A";
+                document.getElementById("id_try_playerAGain").value = "50";
+                document.getElementById("id_try_playerBGain").value = "0";
+                document.getElementById("id_try_All_A").value = "50";
+                document.getElementById("id_try_All_B").value = 0 - {{ player.sentAccountB|json }};
+            };
+        };
+
+        function getRejectB(){
+            document.getElementById("id_try_offerAcceptedB").value = "False";
+            document.getElementById("id_try_playerAGive").value = "0";
+            document.getElementById("id_try_playerBGive").value = "0";
+            document.getElementById("id_try_selfGain").value = "0";
+            if (b == 1){
+                Winner = "玩家B{{ current_round|json }}";
+                document.getElementById("id_try_roundWinder").value = "B";
+                document.getElementById("id_try_playerAGain").value = "0";
+                document.getElementById("id_try_playerBGain").value = "50";
+                document.getElementById("id_try_All_A").value = "0";
+                document.getElementById("id_try_All_B").value = "50";
+            } else {
+                Winner = "玩家A{{ current_round|json }}";
+                document.getElementById("id_try_roundWinder").value = "A";
+                document.getElementById("id_try_playerAGain").value = "50";
+                document.getElementById("id_try_playerBGain").value = "0";
+                document.getElementById("id_try_All_A").value = "50";
+                document.getElementById("id_try_All_B").value = "0";
+            };
+        };
+
+
+        function RandomTime(Min, Max){
+            var Range = Max - Min;
+            var Rand = Math.random();
+            var num = Min + Math.round(Rand * Range);
+            return num
+        };
+
+</script>
+
+<script>
+       function ShowWinner(){
+            document.getElementById("stageStatement").innerHTML = "游戏结束";
+            document.getElementById("stageStatement").className = "card-header text-center text-white bg-success";
+            document.getElementById("changeImg").src = "{% static "a/select-0.png" %}";
+            document.getElementById("winSide").className = "badge badge-success";
+            document.getElementById("submitButton").type = "submit";
+            document.getElementById("winSide").innerHTML = Winner;
+            document.getElementById("submitButton").className = "otree-btn-next btn btn-success btn-lg btn-block"
+            document.getElementById("submitButton").innerHTML = "请您提交游戏结果"
+        };
+
+        function getWinner(){
+            var tRun = RandomTime(3000,5000)
+            setTimeout("ShowWinner()",tRun);
+        };
+
+</script>
+
+<script>
+        var t1 = RandomTime(1000,3000)
+        var t2 = RandomTime(1000,3000)
+        var setAMessage = setTimeout(function(){aMessage();},t1);
+        var setBMessage = setTimeout(function(){bMessage();},t2);
+
+        if(t1 <= t2){
+            var setButton = setTimeout(function(){aActive();bActive();alertMessage()},t2+1000);
+        }else{
+            var setButton = setTimeout(function(){aActive();bActive();alertMessage()},t1+1000);
+        };
+        window.onload = function(){
+            setAMessage(); setBMessage(); setButton();
+        }
+
+</script>
+
+{% endblock %}

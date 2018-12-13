@@ -1,0 +1,48 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="card bg-light mb-3">
+            <h6 class="card-header bg-dark text-white">
+                请判断以下描述与您实际情况的符合程度。
+            </h6>
+            <div class="card-body">
+                <h6 class="card-title text-danger mb-4">
+                    其中1代表完全不符合，7代表完全符合，数字越大代表符合程度越高。
+                </h6>
+
+                <table class="table">
+                    {% for field in form %}
+                        <tr>
+                            <th>{{ field.label }}</th>
+                            {% for choice in field %}
+                                <td>{{ choice }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <button class="otree-btn-next btn btn-primary btn-lg btn-block">下一页</button>
+    </div>
+
+{% endblock %}

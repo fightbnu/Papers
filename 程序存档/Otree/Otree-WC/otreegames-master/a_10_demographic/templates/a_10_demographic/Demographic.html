@@ -1,0 +1,42 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="card bg-light md-3">
+            <h5 class="card-header bg-dark text-white">
+                第六部分：请您填写如下信息
+            </h5>
+            <div class="card-body">
+                {% for field in form %}
+                    {% formfield field %}
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <br/>
+
+    <div>
+        <button class="otree-btn-next btn btn-primary btn-lg btn-block">下一页</button>
+    </div>
+
+{% endblock %}

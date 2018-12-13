@@ -1,0 +1,61 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <div class="container-fluid mb-3">
+        <div class="card border-success">
+            <h5 class="card-header bg-success text-white">第一部分：决策游戏规则学习</h5>
+            <!--<img class="card-img-top" src="{% static "a/Banner_2.png" %}" alt="Card image cap">-->
+            <div class="card-body">
+                <h6 class="card-title">欢迎前来参加我们的游戏。游戏规则对于完成游戏至关重要，请您务必结合图片仔细阅读！</h6>
+                <div class="alert alert-success mb-1" role="alert">
+                    <h6 class="alert-heading">第二部分(2)：</h6>
+                    <img class="card-img-top" src="{% static "a/Intro_2_3.png" %}" alt="intro_2">
+                    <ul class="list-group list-group-flush text-justify">
+                        <li class="list-group-item list-group-item-action">
+                            (3) 如果裁判C收取了这部分代币，其将自动进入裁判C的账户，同时机关自动启动，提升送钱玩家的获胜概率
+                        </li>
+                    </ul>
+                    <br/>
+                    <img class="card-img-top" src="{% static "a/Intro_2_4.png" %}" alt="intro_2">
+                    <ul class="list-group list-group-flush text-justify">
+                        <li class="list-group-item list-group-item-action">
+                            (4) 如果裁判C拒绝收取这部分代币，将不启动机关，两个玩家获胜的概率还是50%
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container-fluid mb-3">
+                <button id="submitButton" type="button" class="otree-btn-next btn btn-secondary btn-lg btn-block mb-2">我已充分理解本页游戏规则</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeButton(){
+            document.getElementById("submitButton").className = "otree-btn-next btn btn-primary btn-lg btn-block mb-2";
+            document.getElementById("submitButton").type = "";
+        };
+        var changeTime = setTimeout(function(){changeButton();},10000);
+        window.onload = function(){
+            changeTime;
+        };
+    </script>
+
+
+{% endblock %}

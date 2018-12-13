@@ -1,0 +1,75 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid mb-3">
+        <div class="card card-light mb-3">
+            <h5 class="card-header text-center bg-success text-white">
+                请您休息2分钟
+            </h5>
+
+            <div class="card-body card-text text-center">
+                <br>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="row mb-3">
+                    <div class="col-md-5 col-xs-5 col-sm-5"></div>
+                    <div class="col-md-2 col-xs-5 col-sm-5">
+                        <img class="card-img" src="{% static "a/Rest.svg" %}" alt="Rest_4">
+                    </div>
+                    <div class="col-md-5 col-xs-5 col-sm-5"></div>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="row mb-3">
+                    <div class="col-md-4 col-xs-4 col-sm-4"></div>
+                    <div class="col-md-4 col-xs-4 col-sm-4">
+                        <div class="progress">
+                            <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-4 col-sm-4"></div>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setProcess(){
+            var processBar = document.getElementById("progressBar");
+            processBar.style.width = parseInt(processBar.style.width) + 1 + "%";
+            if(processBar.style.width == "100%"){
+                window.clearInterval(barTimer);
+            }
+        }
+        var barTimer = setInterval(function(){setProcess();},1200);
+        window.onload = function(){
+            barTimer;
+        }
+    </script>
+
+{% endblock %}

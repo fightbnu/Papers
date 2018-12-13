@@ -1,0 +1,81 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid mb-2">
+        <div class="card card-light">
+            <h5 class="card-header text-center bg-success text-white">
+                系统已为您分配角色
+            </h5>
+
+            <div class="card-body card-text text-center">
+                <div class="row">
+                    <div class="col-md-3 col-xs-3 col-sm-3">
+                        <div class="card border-danger">
+                            <h5 class="card-header text-center text-danger">裁判</h5>
+                            <img class="card-img-top" src="{% static "a/Role_1.svg" %}" alt="Role_1" />
+                            <div class="car-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><b>
+                                    您的本金为：
+                                    <span class="badge badge-danger">250</span>
+                                    个代币</b>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-xs-9 col-sm-9">
+                        <div class="alert alert-success text-left">
+                            <h5 class="alert-header">请您切记游戏规则:</h5>
+                            <ul class="list-group list-group-flush card-text">
+                                <li class="list-group-item">
+                                    1.如果没有玩家向您送钱，或者您拒绝了玩家送的钱，每轮游戏中两位玩家获胜的概率均为 <span class="badge badge-success">50%</span>
+                                </li>
+                                <li class="list-group-item">
+                                    2.如果有玩家给您送钱且您接受了，送钱玩家获胜的概率将自动提升至 <span class="badge badge-success">90%</span>
+                                </li>
+                                <li class="list-group-item">
+                                    3.如果您接受了玩家送的钱，将有 <span class="badge badge-danger">5%</span> 的可能性被系统发现。
+                                </li>
+                                <li class="list-group-item">
+                                    4.如果系统发现您启动了机关，<span class="text-danger">您之前轮次的收益将归零，同时还将从您的初始本金中扣除本轮玩家送钱金额的 <span class="badge badge-danger">3</span> 倍作为罚金</span>。
+                                </li>
+                                <li class="list-group-item">
+                                    5.一旦发现您启动了机关，您的游戏资格都将被取消，游戏自动结束。
+                                </li>
+                                <li class="list-group-item text-danger">
+                                    *请注意，在练习环节，您的练习结果将不会影响您参与实验的最终酬劳,请您随机选择接受或拒绝玩家赠送的代币，来帮助您熟悉游戏规则！
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <button class="otree-btn-next btn btn-success btn-lg btn-block">进入游戏</button>
+    </div>
+
+
+{% endblock %}

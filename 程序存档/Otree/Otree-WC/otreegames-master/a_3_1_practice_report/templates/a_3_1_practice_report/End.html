@@ -1,0 +1,39 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+            }
+        .otree-body {
+            max-width: 1280px
+        }
+        .page-header {
+            padding-top: 0px
+        }
+    </style>
+{% endblock%}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="card bg-light mb-3">
+            <h5 class="card-header text-center text-white bg-info">指导语</h5>
+            <div class="card-body text-center">
+                <p>
+                  您已完成练习部分!
+                  您在游戏练习中共赢得 {{ totleGain }}，加上您的基础资本 250 代币，转化为人民币即为 {{ totleMoney }} 。
+                </p>
+                <p>
+                  请注意，练习部分的收益将不会计入最终收益，在接下来的正式游戏环节的收益才会计入您的被试费。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <button class="otree-btn-next btn btn-success btn-lg btn-block mb-3">下一页</button>
+    </div>
+
+{% endblock %}
